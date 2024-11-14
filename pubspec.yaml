@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore: ^5.4.0
   firebase_storage: ^12.2.0
   dash_chat: ^1.1.16
+  firebase_analytics: ^11.3.0
 
 
 
