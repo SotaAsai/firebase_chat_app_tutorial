@@ -75,14 +75,55 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomFormField(
+              height: MediaQuery.sizeOf(context).height * 0.1,
               hintText: "Email",
             ),
             CustomFormField(
+              height: MediaQuery.sizeOf(context).height * 0.1,
               hintText: "Password",
             ),
+            _loginButton(),
+            _createAnAccountLink(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _loginButton() {
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      child: MaterialButton(
+        onPressed: () {
+
+        },
+        color: Theme.of(context).colorScheme.primary,
+        child: const Text(
+          "Login",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _createAnAccountLink() {
+    return const Expanded(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text("Don't have an account? "),
+            Text(
+              "Sign Up",
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
     );
   }
 }
