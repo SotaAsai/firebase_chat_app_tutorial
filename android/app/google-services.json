@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "798210633919",
+    "project_id": "fir-chat-app-tutorial-a9305",
+    "storage_bucket": "fir-chat-app-tutorial-a9305.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798210633919:android:c6e8de703d5fbec03b960a",
+        "android_client_info": {
+          "package_name": "com.example.firebase_chat_app_tutorial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6upsekLPTl2loEvztU0HCYmsVCD7Gg0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
