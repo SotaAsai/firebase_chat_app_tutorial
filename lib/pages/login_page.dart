@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               _headerText(),
               _loginForm(),
+              _createAnAccountLink(),
             ],
           ),
         ),
@@ -83,7 +84,6 @@ class _LoginPageState extends State<LoginPage> {
               hintText: "Password",
             ),
             _loginButton(),
-            _createAnAccountLink(),
           ],
         ),
       ),
