@@ -1,5 +1,6 @@
 import 'package:firebase_chat_app_tutorial/pages/home_page.dart';
 import 'package:firebase_chat_app_tutorial/pages/login_page.dart';
+import 'package:firebase_chat_app_tutorial/pages/register_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationService {
@@ -7,6 +8,7 @@ class NavigationService {
 
   final Map<String, Widget Function(BuildContext)> _routes = {
     "/login": (context) => LoginPage(),
+    "/register": (context) => RegisterPage(),
     "/home": (context) => HomePage(),
   };
 

@@ -1,4 +1,5 @@
 import 'package:firebase_chat_app_tutorial/firebase_options.dart';
+import 'package:firebase_chat_app_tutorial/services/alert_service.dart';
 import 'package:firebase_chat_app_tutorial/services/auth_service.dart';
 import 'package:firebase_chat_app_tutorial/services/navigation_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,5 +18,8 @@ Future<void> registerServices() async {
   );
   getIt.registerSingleton<NavigationService>(
     NavigationService(),
+  );
+  getIt.registerSingleton<AlertService>(
+    AlertService(),
   );
 }

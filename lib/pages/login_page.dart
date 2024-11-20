@@ -1,9 +1,11 @@
 
 import 'package:firebase_chat_app_tutorial/constant.dart';
+import 'package:firebase_chat_app_tutorial/services/alert_service.dart';
 import 'package:firebase_chat_app_tutorial/services/auth_service.dart';
 import 'package:firebase_chat_app_tutorial/services/navigation_service.dart';
 import 'package:firebase_chat_app_tutorial/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   late AuthService _authService;
   late NavigationService _navigationService;
+  late AlertService _alertService;
 
   String? email, password;
 
@@ -28,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     _authService = _getIt.get<AuthService>();
     _navigationService = _getIt.get<NavigationService>();
+    _alertService = _getIt.get<AlertService>();
   }
 
   @override
@@ -138,9 +142,11 @@ class _LoginPageState extends State<LoginPage> {
             print(result);
             if (result) {
               _navigationService.pushReplacementNamed("/home");
-
             } else {
-
+              _alertService.showToast(
+                text: "Failed to login, Please try again!",
+                icon: Icons.error,
+              );
             }
 
 
@@ -159,17 +165,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _createAnAccountLink() {
-    return const Expanded(
+    return Expanded(
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text("Don't have an account? "),
-            Text(
-              "Sign Up",
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
+            const Text("Don't have an account? "),
+            GestureDetector(
+              onTap: () {
+                _navigationService.pushNamed("/register");
+              },
+              child: const Text(
+                "Sign Up",
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ],
