@@ -1,12 +1,17 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_chat_app_tutorial/pages/login_page.dart';
+import 'package:firebase_chat_app_tutorial/services/auth_service.dart';
+import 'package:firebase_chat_app_tutorial/services/navigation_service.dart';
 import 'package:firebase_chat_app_tutorial/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   await setup();
-  runApp(const MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 Future<void> setup() async {
@@ -16,12 +21,21 @@ Future<void> setup() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GetIt _getIt = GetIt.instance;
+
+  late NavigationService _navigationService;
+  late AuthService _authService;
+
+  MyApp({super.key}) {
+    _navigationService = _getIt.get<NavigationService>();
+    _authService = _getIt.get<AuthService>();
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigationService.navigatorKey,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -30,7 +44,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
-      home: LoginPage(),
+      // home: LoginPage(),
+      initialRoute: _authService.user != null ? "/home" : "/login",
+      routes: _navigationService.routes,
     );
   }
 }
