@@ -94,7 +94,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: ChatTile(
                     userProfile: user,
-                    onTap: () {},
+                    onTap: () async {
+                      final chatExists = await _databaseService.checkChatExsists(
+                        _authService.user!.uid,
+                        user.uid!,
+                      );
+                      if (!chatExists) {
+                        await _databaseService.createNewChat(
+                          _authService.user!.uid,
+                          user.uid!,
+                        );
+                      }
+                    },
                   ),
                 );
               },

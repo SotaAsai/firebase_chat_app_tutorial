@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_chat_app_tutorial/models/chat.dart';
 import 'package:firebase_chat_app_tutorial/models/user_profile.dart';
 import 'package:firebase_chat_app_tutorial/services/auth_service.dart';
+import 'package:firebase_chat_app_tutorial/utils.dart';
 import 'package:get_it/get_it.dart';
 
 class DatabaseService {
@@ -10,6 +12,7 @@ class DatabaseService {
   late AuthService _authService;
 
   CollectionReference? _usersCollection;
+  CollectionReference? _chatsCollection;
 
   DatabaseService() {
     _authService = _getIt.get<AuthService>();
@@ -20,6 +23,10 @@ class DatabaseService {
     _usersCollection = _firebaseFirestore.collection("users").withConverter<UserProfile>(
         fromFirestore: (snapshots, _) => UserProfile.fromJson(snapshots.data()!),
         toFirestore: (userProfile, _) => userProfile.toJson());
+    _chatsCollection = _firebaseFirestore.collection("chats").withConverter<Chat>(
+          fromFirestore: (snapshots, _) => Chat.fromJson(snapshots.data()!),
+          toFirestore: (chat, _) => chat.toJson(),
+        );
   }
 
   Future<void> createUserProfile({required UserProfile userProfile}) async {
@@ -27,8 +34,27 @@ class DatabaseService {
   }
 
   Stream<QuerySnapshot<UserProfile>> getUserProfiles() {
-    return _usersCollection
-      ?.where("uid", isNotEqualTo: _authService.user!.uid)
-      .snapshots() as Stream<QuerySnapshot<UserProfile>>;
+    return _usersCollection?.where("uid", isNotEqualTo: _authService.user!.uid).snapshots()
+        as Stream<QuerySnapshot<UserProfile>>;
+  }
+
+  Future<bool> checkChatExsists(String uid1, String uid2) async {
+    String chatID = generateChatID(uid1: uid1, uid2: uid2);
+    final result = await _chatsCollection?.doc(chatID).get();
+    if (result != null) {
+      return result.exists;
+    }
+    return false;
+  }
+
+  Future<void> createNewChat(String uid1, String uid2) async {
+    String chatID = generateChatID(uid1: uid1, uid2: uid2);
+    final docRef = _chatsCollection!.doc(chatID);
+    final chat = Chat(
+      id: chatID,
+      participants: [uid1, uid2],
+      messages: [],
+    );
+    await docRef.set(chat);
   }
 }

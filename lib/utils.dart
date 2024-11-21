@@ -17,7 +17,7 @@ Future<void> setupFirebase() async {
 Future<void> registerServices() async {
   final GetIt getIt = GetIt.instance;
   getIt.registerSingleton<AuthService>(
-      AuthService(),
+    AuthService(),
   );
   getIt.registerSingleton<NavigationService>(
     NavigationService(),
@@ -34,4 +34,11 @@ Future<void> registerServices() async {
   getIt.registerSingleton<DatabaseService>(
     DatabaseService(),
   );
+}
+
+String generateChatID({required String uid1, required String uid2}) {
+  List uids = [uid1, uid2];
+  uids.sort();
+  String chatID = uids.fold("", (id, uid) => "$id$uid");
+  return chatID;
 }
