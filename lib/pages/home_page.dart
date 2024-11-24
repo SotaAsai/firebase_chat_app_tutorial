@@ -1,4 +1,5 @@
 import 'package:firebase_chat_app_tutorial/models/user_profile.dart';
+import 'package:firebase_chat_app_tutorial/pages/chat_page.dart';
 import 'package:firebase_chat_app_tutorial/services/alert_service.dart';
 import 'package:firebase_chat_app_tutorial/services/auth_service.dart';
 import 'package:firebase_chat_app_tutorial/services/database_service.dart';
@@ -105,6 +106,15 @@ class _HomePageState extends State<HomePage> {
                           user.uid!,
                         );
                       }
+                      _navigationService.push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ChatPage(
+                              chatUser: user,
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                 );

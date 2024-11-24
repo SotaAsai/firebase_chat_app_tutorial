@@ -2,6 +2,7 @@ import 'package:firebase_chat_app_tutorial/pages/home_page.dart';
 import 'package:firebase_chat_app_tutorial/pages/login_page.dart';
 import 'package:firebase_chat_app_tutorial/pages/register_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NavigationService {
   late GlobalKey<NavigatorState> _navigatorKey;
@@ -22,6 +23,10 @@ class NavigationService {
 
   NavigationService() {
     _navigatorKey = GlobalKey<NavigatorState>();
+  }
+
+  void push(MaterialPageRoute route) {
+    _navigatorKey.currentState?.push(route);
   }
 
   void pushNamed(String routeName) {
