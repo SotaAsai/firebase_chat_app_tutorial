@@ -79,7 +79,7 @@ class _ChatPageState extends State<ChatPage> {
           inputOptions: InputOptions(
             alwaysShowSend: true,
             trailing: [
-              _mediaMessageButton(),
+              // _mediaMessageButton(),
             ],
           ),
           currentUser: currentUser!,
